@@ -11,7 +11,7 @@ describe('Test getAPIKey function', () => {
   it('should return null if authorization header is not in the correct format', () => {
     const headers = { authorization: 'Bearer some-token' };
     const result = getAPIKey(headers);
-    expect(result).not.toBeNull();
+    expect(result).toBeNull();
   });
 
   it('should return the API key if authorization header is in the correct format', () => {
