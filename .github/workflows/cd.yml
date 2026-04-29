@@ -23,3 +23,14 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: GCloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: notely-494818
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Build and push Docker image
+        run: |
+          gcloud builds submit --tag gcr.io/notely-494818/notely:latest .
+          gcloud run deploy notely --image gcr.io/notely-494818/notely:latest --region us-central1 --platform managed --allow-unauthenticated
